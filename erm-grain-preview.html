@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Built for Your Expertise | Grain-Inspired Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #17211d;
+  --green: #00534e;
+  --green-deep: #003f3b;
+  --green-soft: #0d6a62;
+  --mint: #b3d6d3;
+  --chartreuse: #dbe976;
+  --cream: #f6efe3;
+  --sand: #eadfcf;
+  --orange: #d98c42;
+  --line: rgba(246,239,227,0.24);
+  --dark-line: rgba(23,33,29,0.18);
+  --sans: "DM Sans", system-ui, sans-serif;
+  --serif: "Fraunces", Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 10px; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+.wrap { width: min(92vw, 1420px); margin: 0 auto; }
+
+.preview-note {
+  background: var(--chartreuse);
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0.9rem 1.4rem;
+}
+
+.ticker {
+  background: var(--green);
+  color: var(--cream);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(246,239,227,0.2);
+}
+.ticker-track {
+  display: flex;
+  gap: 3.2rem;
+  width: max-content;
+  white-space: nowrap;
+  animation: ticker 30s linear infinite;
+  padding: 1.15rem 0;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ticker-item::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--chartreuse);
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(246,239,227,0.94);
+  border-bottom: 2px solid var(--ink);
+  backdrop-filter: blur(8px);
+}
+.masthead .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 7.2rem;
+}
+.brand {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2.6rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.nav a:not(.btn) { opacity: 0.76; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--chartreuse);
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  padding: 1.1rem 2.2rem;
+  transition: transform 0.18s, background 0.18s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  background: var(--mint);
+}
+.btn.dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+.btn.outline {
+  background: transparent;
+  color: var(--cream);
+  border-color: rgba(246,239,227,0.55);
+}
+
+.hero {
+  background: var(--green);
+  color: var(--cream);
+  min-height: calc(100vh - 11rem);
+  display: grid;
+  align-items: stretch;
+  border-bottom: 2px solid var(--ink);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  min-height: calc(100vh - 11rem);
+}
+.hero-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 5vw 8rem 0;
+}
+.eyebrow {
+  color: var(--chartreuse);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(7rem, 11vw, 15rem);
+  font-weight: 800;
+  letter-spacing: -0.08em;
+  line-height: 0.86;
+  max-width: 9ch;
+  margin-bottom: 3rem;
+}
+.hero h1 em {
+  color: var(--mint);
+  font-style: italic;
+  font-weight: 600;
+}
+.hero-tag {
+  font-size: clamp(2.3rem, 3vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  max-width: 16ch;
+  margin-bottom: 2rem;
+}
+.hero-sub {
+  color: rgba(246,239,227,0.78);
+  font-size: 1.85rem;
+  max-width: 56ch;
+  margin-bottom: 3.6rem;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+}
+.hero-side {
+  border-left: 2px solid rgba(246,239,227,0.2);
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+}
+.stat {
+  padding: 3rem;
+  border-bottom: 2px solid rgba(246,239,227,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(0,0,0,0.06);
+}
+.stat:last-child { border-bottom: none; }
+.stat-label {
+  color: var(--chartreuse);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+.stat-value {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 3vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+
+.section {
+  padding: 10rem 0;
+  border-bottom: 2px solid var(--dark-line);
+}
+.section.green {
+  background: var(--green-deep);
+  color: var(--cream);
+  border-color: rgba(246,239,227,0.18);
+}
+.section.sand { background: var(--sand); }
+.section-head {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 6rem;
+  align-items: start;
+  margin-bottom: 5rem;
+}
+.section-label {
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.green .section-label { color: var(--chartreuse); }
+.display {
+  font-family: var(--serif);
+  font-size: clamp(4.6rem, 7vw, 10rem);
+  font-weight: 800;
+  letter-spacing: -0.07em;
+  line-height: 0.9;
+  max-width: 11ch;
+}
+.lead {
+  font-size: clamp(2.4rem, 3.5vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  max-width: 18ch;
+}
+.copy {
+  color: rgba(23,33,29,0.72);
+  font-size: 1.75rem;
+  max-width: 66ch;
+  margin-bottom: 1.5rem;
+}
+.green .copy { color: rgba(246,239,227,0.76); }
+.copy strong { color: var(--ink); font-weight: 900; }
+.green .copy strong { color: var(--cream); }
+
+.split-copy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+}
+.quote-card {
+  background: var(--chartreuse);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 2rem;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 4vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  padding: 4rem;
+  margin-top: 4rem;
+  max-width: 760px;
+}
+
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  gap: 2px;
+}
+.phase-card {
+  background: var(--cream);
+  padding: 4rem;
+  min-height: 38rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.phase-num {
+  color: var(--green);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.phase-title {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 5vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+  margin: 2rem 0;
+}
+.phase-sub {
+  color: var(--green);
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+}
+.phase-card p {
+  color: rgba(23,33,29,0.72);
+  font-size: 1.6rem;
+}
+
+.session-list {
+  border-top: 2px solid rgba(246,239,227,0.24);
+}
+.session {
+  display: grid;
+  grid-template-columns: 12rem 0.65fr 1fr;
+  gap: 3rem;
+  padding: 3rem 0;
+  border-bottom: 2px solid rgba(246,239,227,0.18);
+  align-items: start;
+}
+.session-num {
+  font-family: var(--serif);
+  color: var(--chartreuse);
+  font-size: 5.6rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+.session-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+.session-kick {
+  color: var(--mint);
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.6rem;
+}
+.session-desc {
+  color: rgba(246,239,227,0.76);
+  font-size: 1.65rem;
+  max-width: 72ch;
+}
+
+.leave-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  gap: 2px;
+}
+.leave-item {
+  background: var(--sand);
+  min-height: 24rem;
+  padding: 2.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.leave-item span:first-child {
+  color: var(--green);
+  font-family: var(--serif);
+  font-size: 4rem;
+  font-weight: 800;
+}
+.leave-item span:last-child {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.bios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  gap: 2px;
+}
+.bio {
+  background: var(--cream);
+  padding: 3.5rem;
+}
+.bio-name {
+  font-family: var(--serif);
+  font-size: 4.2rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  margin-bottom: 1.2rem;
+}
+.bio-role {
+  color: var(--green);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.bio p {
+  color: rgba(23,33,29,0.72);
+  font-size: 1.52rem;
+}
+
+.apply {
+  background: var(--green);
+  color: var(--cream);
+  padding: 10rem 0;
+}
+.apply-card {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 5rem;
+  align-items: end;
+  background: var(--cream);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 2.4rem;
+  padding: 5rem;
+}
+.apply-card .display {
+  max-width: 12ch;
+}
+.apply-copy {
+  color: rgba(23,33,29,0.74);
+  font-size: 1.8rem;
+  margin-bottom: 2.8rem;
+}
+
+.footer {
+  background: var(--ink);
+  color: rgba(246,239,227,0.64);
+  padding: 3rem 0;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 980px) {
+  .hero-grid, .section-head, .split-copy, .apply-card { grid-template-columns: 1fr; }
+  .hero-side { border-left: none; border-top: 2px solid rgba(246,239,227,0.2); }
+  .phase-grid, .bios { grid-template-columns: 1fr; }
+  .leave-grid { grid-template-columns: 1fr 1fr; }
+  .session { grid-template-columns: 1fr; gap: 1rem; }
+  .nav a:not(.btn), .mast-label { display: none; }
+}
+@media (max-width: 640px) {
+  .leave-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 6.4rem; }
+  .hero-main { padding-right: 0; }
+  .apply-card { padding: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<div class="preview-note">Preview only: production erm.html is unchanged</div>
+
+<div class="ticker" aria-label="Announcement">
+  <div class="ticker-track" aria-hidden="true">
+    <span class="ticker-item">AI 201</span>
+    <span class="ticker-item">Five Weekly Sessions</span>
+    <span class="ticker-item">First Cohort starts July 15 at 5PM PT / 8PM ET</span>
+    <span class="ticker-item">Online</span>
+    <span class="ticker-item">Beta cohort $500</span>
+    <span class="ticker-item">Your work is the use case</span>
+    <span class="ticker-item">AI 201</span>
+    <span class="ticker-item">Five Weekly Sessions</span>
+    <span class="ticker-item">First Cohort starts July 15 at 5PM PT / 8PM ET</span>
+    <span class="ticker-item">Online</span>
+    <span class="ticker-item">Beta cohort $500</span>
+    <span class="ticker-item">Your work is the use case</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <span class="brand">AI Built for Your Expertise</span>
+    <nav class="nav" aria-label="Page navigation">
+      <a href="#framework">Framework</a>
+      <a href="#sessions">Sessions</a>
+      <a href="#apply" class="btn">Join the beta</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-main">
+        <p class="eyebrow">AI for experienced professionals</p>
+        <h1>Experience runs the <em>model.</em></h1>
+        <p class="hero-tag">AI on your terms. Your work is the use case.</p>
+        <p class="hero-sub">A five-session workshop for experienced professionals ready to build AI around the work only they can do.</p>
+        <div class="hero-actions">
+          <a href="#apply" class="btn">Join the beta cohort</a>
+          <a href="#framework" class="btn outline">See how it works</a>
+        </div>
+      </div>
+      <aside class="hero-side" aria-label="Course details">
+        <div class="stat">
+          <span class="stat-label">Format</span>
+          <span class="stat-value">Five Weekly Online Sessions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Each Session</span>
+          <span class="stat-value">60 min + 30 min lab</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Cohort</span>
+          <span class="stat-value">10 to 15 people</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Beta Pricing</span>
+          <span class="stat-value">$500</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-label">What this is</p>
+        <p class="lead">You have spent decades earning the thing AI cannot replicate.</p>
+      </div>
+      <div class="split-copy">
+        <div>
+          <p class="copy">The relationships built over years. The decisions that never make it into a document. The judgment that only comes from being in the room.</p>
+          <p class="copy">AI is powerful. It is also not you. It does not know your clients. It did not sit in those meetings. It cannot tell you which part of your workflow is the real leverage point and which part just looks like one. You can.</p>
+        </div>
+        <div>
+          <p class="copy"><strong>Your experience is not the past. It is the starting point.</strong></p>
+          <p class="copy">You bring a real workflow from your own practice. We map it. We audit it. We put AI inside the parts that belong to it. Then we look at what becomes possible when AI is carrying what it should.</p>
+        </div>
+      </div>
+      <div class="quote-card">The tools follow the goal. Not the other way around.</div>
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-label">Who this is for</p>
+        <p class="lead">If you have used any AI tool to get real work done, even once, you are ready.</p>
+      </div>
+      <p class="copy">If you are starting from zero, AI 101 comes first. If you already use AI most days, you will go further here, not back over old ground. The only prerequisite is hands-on time with at least one tool, whether ChatGPT, Claude, or Gemini.</p>
+    </div>
+  </section>
+
+  <section class="section" id="framework">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-label">The framework</p>
+        <h2 class="display">See it. Sort it. Scale it.</h2>
+      </div>
+      <div class="phase-grid">
+        <article class="phase-card">
+          <div>
+            <span class="phase-num">Phase 01</span>
+            <h3 class="phase-title">See it</h3>
+            <p class="phase-sub">Foundation</p>
+          </div>
+          <p>Most experienced professionals carry their entire operating system inside their heads. This layer gets it onto a page, where it can actually be worked with. Messy is fine. Honest is required.</p>
+        </article>
+        <article class="phase-card">
+          <div>
+            <span class="phase-num">Phase 02</span>
+            <h3 class="phase-title">Sort it</h3>
+            <p class="phase-sub">The filter</p>
+          </div>
+          <p>Audit every piece of your Map with AI in mind. What should AI own? What requires genuine judgment and must stay human? What are you doing out of habit that stopped serving you years ago?</p>
+        </article>
+        <article class="phase-card">
+          <div>
+            <span class="phase-num">Phase 03</span>
+            <h3 class="phase-title">Scale it</h3>
+            <p class="phase-sub">Expansion</p>
+          </div>
+          <p>When AI owns what it should, something appears that was not visible before. Not just time saved. Time that now has somewhere better to go. This is the layer only experience can unlock.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section green" id="sessions">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-label">The five sessions</p>
+        <p class="lead">Five weekly sessions. Light homework between each, always on your own work and never busywork.</p>
+      </div>
+      <div class="session-list">
+        <article class="session">
+          <div class="session-num">01</div>
+          <div>
+            <h3 class="session-title">See It</h3>
+            <p class="session-kick">Make the invisible visible</p>
+          </div>
+          <p class="session-desc">Map the workflow only you know how to do. In class together, instructors model first, then you build your own. Messy is fine. Honesty is required.</p>
+        </article>
+        <article class="session">
+          <div class="session-num">02</div>
+          <div>
+            <h3 class="session-title">See It, Deeper</h3>
+            <p class="session-kick">Find what got edited out</p>
+          </div>
+          <p class="session-desc">The first map is never the real map. Small groups pressure test what got left out. Then you hand one small piece to AI and observe what happens.</p>
+        </article>
+        <article class="session">
+          <div class="session-num">03</div>
+          <div>
+            <h3 class="session-title">Sort It</h3>
+            <p class="session-kick">Decide what AI can and cannot own</p>
+          </div>
+          <p class="session-desc">Now you have real data. Run the audit: what should AI own, what stays human, where does agentic AI belong. Four sort tags, one heuristic, and working groups apply it to their own maps.</p>
+        </article>
+        <article class="session">
+          <div class="session-num">04</div>
+          <div>
+            <h3 class="session-title">Sort It Applied + Scale It</h3>
+            <p class="session-kick">What happened, and what it opens up</p>
+          </div>
+          <p class="session-desc">Report back on what happened when you handed work to AI. Then look at what the friction reveals, and what opens up once AI is doing its part. Scale is not just time saved. It is where that time goes.</p>
+        </article>
+        <article class="session">
+          <div class="session-num">05</div>
+          <div>
+            <h3 class="session-title">Own It</h3>
+            <p class="session-kick">Explain it and you own it</p>
+          </div>
+          <p class="session-desc">A working debrief, not a final exam. You walk a room of peers through your rebuilt workflow: what AI owns, what stayed human, what changed, and what is now possible.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-label">You will leave with</p>
+        <h2 class="display">A working map, not just notes.</h2>
+      </div>
+      <div class="leave-grid">
+        <div class="leave-item"><span>01</span><span>A mapped version of one real workflow from your professional practice.</span></div>
+        <div class="leave-item"><span>02</span><span>A clear view of which parts AI can support, automate, or augment.</span></div>
+        <div class="leave-item"><span>03</span><span>A sharper understanding of what must remain human.</span></div>
+        <div class="leave-item"><span>04</span><span>A tested AI handoff inside your actual workflow.</span></div>
+        <div class="leave-item"><span>05</span><span>A scale layer showing what becomes possible when AI handles the right work.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-label">Your instructors</p>
+        <h2 class="display">Built by people who work inside transformation.</h2>
+      </div>
+      <div class="bios">
+        <article class="bio">
+          <h3 class="bio-name">Anja Lee</h3>
+          <p class="bio-role">Data and AI product leader</p>
+          <p>Anja has spent 25+ years in high-tech building data-intensive products at Yahoo, SAP, CBS Interactive, and startups, across AI, analytics, cloud, privacy, gaming, and ad tech. She teaches Data Visualization with Python and AI for Business at Stanford Continuing Studies, and serves as Global Advisor and instructor for Education and Ethics at She is AI.</p>
+        </article>
+        <article class="bio">
+          <h3 class="bio-name">Lauren Cantor</h3>
+          <p class="bio-role">Founder, Field + Edge</p>
+          <p>Lauren is the founder of Field + Edge, an AI advisory firm building intelligent systems for enterprise workflows, and Senior Partner at NextAccess. She spent close to twenty years on Wall Street before pivoting fully into design and technology, and teaches AI and innovation at SVA, ArtCenter, and CalTech.</p>
+        </article>
+        <article class="bio">
+          <h3 class="bio-name">Mike Scafidi</h3>
+          <p class="bio-role">Marketing transformation leader</p>
+          <p>Mike is the founder of TheNativeCommons.com, a company built from the ground up with a team of AI agents, and a partner at Gr0wth Dr1vers. He spent his prior career inside Fortune 50 multinationals, most notably leading marketing transformation at PepsiCo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="apply" id="apply">
+    <div class="wrap">
+      <div class="apply-card">
+        <div>
+          <p class="section-label">Join the beta</p>
+          <h2 class="display">Your work is the use case.</h2>
+        </div>
+        <div>
+          <p class="apply-copy">Five online sessions. First Cohort starts July 15 at 5PM PT / 8PM ET. Beta pricing $500. The beta is capped at 15 seats.</p>
+          <p class="apply-copy">Tell us about the workflow you would bring. We read every response and reply within a few days. Enrolled participants get a private area with session recordings and exercises.</p>
+          <a href="https://forms.gle/4izbvJfgik8q7gvg7" target="_blank" rel="noopener" class="btn dark">Join the beta cohort</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span>AI Built for Your Expertise</span>
+    <span>Preview direction: more Grain & Mortar-like</span>
+  </div>
+</footer>
+</body>
+</html>
