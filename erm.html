@@ -516,7 +516,63 @@ h2.display {
   gap: 1rem;
 }
 
+/* ─── SIDE NAVIGATION (SCROLL SPY) ─────────────────────────── */
+.side-nav {
+  position: fixed;
+  right: 4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: flex-end;
+}
+.side-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  cursor: pointer;
+  group: nav;
+}
+.side-nav-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.side-nav-line {
+  width: 2px;
+  height: 2.4rem;
+  background: var(--line);
+  transition: background 0.3s ease, height 0.3s ease;
+}
+.side-nav-item:hover .side-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+.side-nav-item:hover .side-nav-line {
+  background: var(--green-pale);
+}
+.side-nav-item.active .side-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--cream);
+}
+.side-nav-item.active .side-nav-line {
+  background: var(--green);
+  height: 4rem;
+}
+
 /* ─── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .side-nav { display: none; }
+}
 @media (max-width: 960px) {
   .meta-strip { grid-template-columns: 1fr 1fr; }
   .meta-cell:nth-child(2) { border-right: none; }
@@ -541,6 +597,34 @@ h2.display {
 </style>
 </head>
 <body>
+
+<!-- SIDE NAVIGATION -->
+<nav class="side-nav" aria-label="Page sections">
+  <a href="#what-this-is" class="side-nav-item">
+    <span class="side-nav-label">What this is</span>
+    <span class="side-nav-line"></span>
+  </a>
+  <a href="#who-this-is-for" class="side-nav-item">
+    <span class="side-nav-label">Who this is for</span>
+    <span class="side-nav-line"></span>
+  </a>
+  <a href="#framework" class="side-nav-item">
+    <span class="side-nav-label">The framework</span>
+    <span class="side-nav-line"></span>
+  </a>
+  <a href="#sessions" class="side-nav-item">
+    <span class="side-nav-label">The sessions</span>
+    <span class="side-nav-line"></span>
+  </a>
+  <a href="#leave-with" class="side-nav-item">
+    <span class="side-nav-label">Leave with</span>
+    <span class="side-nav-line"></span>
+  </a>
+  <a href="#instructors" class="side-nav-item">
+    <span class="side-nav-label">Instructors</span>
+    <span class="side-nav-line"></span>
+  </a>
+</nav>
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="bar" aria-label="Announcement">
@@ -606,7 +690,7 @@ h2.display {
 </section>
 
 <!-- WHAT THIS IS -->
-<section class="section">
+<section class="section" id="what-this-is">
   <div class="wrap">
     <p class="section-label">What this is</p>
     <p class="lead">You have spent decades earning the thing AI cannot replicate. The relationships built over years. The decisions that never make it into a document. The judgment that only comes from being in the room.</p>
@@ -618,7 +702,7 @@ h2.display {
 </section>
 
 <!-- WHO -->
-<section class="section">
+<section class="section" id="who-this-is-for">
   <div class="wrap">
     <p class="section-label">Who this is for</p>
     <div class="two-col">
@@ -665,7 +749,7 @@ h2.display {
 </section>
 
 <!-- SESSIONS -->
-<section class="section">
+<section class="section" id="sessions">
   <div class="wrap">
     <p class="section-label">The five sessions</p>
     <p class="body-copy">Five weekly sessions. Light homework (about an hour a week) between each, always on your own work and never busywork.</p>
@@ -715,7 +799,7 @@ h2.display {
 </section>
 
 <!-- LEAVE WITH -->
-<section class="section">
+<section class="section" id="leave-with">
   <div class="wrap">
     <p class="section-label">You will leave with</p>
     <div class="leave-list">
@@ -729,7 +813,7 @@ h2.display {
 </section>
 
 <!-- INSTRUCTORS -->
-<section class="section">
+<section class="section" id="instructors">
   <div class="wrap">
     <p class="section-label">Your instructors</p>
     <div class="bios">
@@ -775,4 +859,38 @@ h2.display {
 </footer>
 
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.section');
+    const navItems = document.querySelectorAll('.side-nav-item');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Remove active class from all
+          navItems.forEach(item => item.classList.remove('active'));
+          
+          // Add active class to corresponding nav item
+          const id = entry.target.getAttribute('id');
+          const activeNav = document.querySelector(`.side-nav-item[href="#${id}"]`);
+          if (activeNav) {
+            activeNav.classList.add('active');
+          }
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      if (section.getAttribute('id')) {
+        observer.observe(section);
+      }
+    });
+  });
+</script>
 </html>
