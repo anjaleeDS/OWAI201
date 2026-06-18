@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Built for Your Expertise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4f0e7;
+    --paper-deep: #ece6d8;
+    --ink: #1c1b18;
+    --ink-soft: #45433d;
+    --ink-faint: #76726a;
+    --accent: #14463f;
+    --accent-bright: #1f6b5f;
+    --gold: #9a7b2e;
+    --line: #d4cdbd;
+    --max: 940px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.6;
+    font-weight: 380;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(31,107,95,0.05), transparent 40%),
+      radial-gradient(circle at 88% 22%, rgba(154,123,46,0.05), transparent 45%);
+  }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(244,240,231,0.86);
+    backdrop-filter: blur(8px);
+  }
+  .masthead-inner {
+    max-width: var(--max); margin: 0 auto; padding: 0.9rem 2rem;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .masthead-name {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 1rem;
+    letter-spacing: 0.01em;
+  }
+  .masthead-name span { color: var(--accent); }
+  .masthead-meta {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint); font-family: 'Newsreader', serif;
+  }
+
+  /* HERO */
+  .hero { padding: 6rem 0 4.5rem; border-bottom: 1px solid var(--line); }
+  .kicker {
+    font-size: 0.74rem; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 2rem;
+    opacity: 0; animation: rise 0.8s 0.05s forwards;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 540; font-size: clamp(3rem, 8vw, 5.6rem);
+    line-height: 0.98; letter-spacing: -0.02em; margin-bottom: 1.4rem;
+    opacity: 0; animation: rise 0.9s 0.15s forwards;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); font-weight: 460; }
+  .hero-tag {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: clamp(1.4rem, 3.2vw, 2rem); font-weight: 380;
+    color: var(--ink-soft); margin-bottom: 2.4rem;
+    opacity: 0; animation: rise 0.9s 0.3s forwards;
+  }
+  .hero-sub {
+    max-width: 600px; font-size: 1.22rem; color: var(--ink-soft);
+    margin-bottom: 3rem; opacity: 0; animation: rise 0.9s 0.45s forwards;
+  }
+  .hero-cta {
+    opacity: 0; animation: rise 0.9s 0.6s forwards;
+    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn {
+    display: inline-block; background: var(--accent); color: var(--paper);
+    font-family: 'Newsreader', serif; font-size: 1.02rem; font-weight: 500;
+    padding: 0.85rem 2rem; border-radius: 2px; text-decoration: none;
+    letter-spacing: 0.01em; transition: background 0.25s, transform 0.25s;
+  }
+  .btn:hover { background: var(--accent-bright); transform: translateY(-2px); }
+  .btn-ghost {
+    color: var(--accent); text-decoration: none; font-size: 0.95rem;
+    border-bottom: 1px solid var(--line); padding-bottom: 2px;
+    transition: border-color 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); }
+
+  /* META STRIP */
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); margin-top: 3.2rem;
+    opacity: 0; animation: rise 0.9s 0.7s forwards;
+  }
+  .meta-cell { background: var(--paper); padding: 1.1rem 1.2rem; }
+  .meta-label {
+    font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint); display: block; margin-bottom: 0.35rem;
+  }
+  .meta-value { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.04rem; }
+  .placeholder {
+    color: var(--gold); font-style: italic; font-family: 'Newsreader', serif;
+    font-weight: 400; font-size: 0.95rem;
+  }
+
+  /* SECTIONS */
+  section { padding: 4.5rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: 76px; }
+  .label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.6rem;
+  }
+  h2 {
+    font-family: 'Fraunces', serif; font-weight: 520;
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.05;
+    letter-spacing: -0.015em; margin-bottom: 1.6rem;
+  }
+  section p { margin-bottom: 1.1rem; max-width: 680px; }
+  .lead { font-size: 1.28rem; color: var(--ink-soft); }
+  strong { font-weight: 600; color: var(--ink); }
+  .accent-line {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 460;
+    font-size: 1.5rem; color: var(--accent); line-height: 1.3;
+    margin: 2rem 0; max-width: 620px;
+  }
+
+  /* FRAMEWORK */
+  .layers { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 2.4rem; }
+  .layer { background: var(--paper); padding: 2rem; display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; transition: background 0.3s; }
+  .layer:hover { background: var(--paper-deep); }
+  .layer-tag { }
+  .layer-num { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); }
+  .layer-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.8rem; color: var(--accent); margin-top: 0.2rem; }
+  .layer-name { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; margin-top: 0.2rem; }
+  .layer-desc { font-size: 1.04rem; color: var(--ink-soft); }
+
+  /* SESSIONS */
+  .session { display: grid; grid-template-columns: 120px 1fr; gap: 1.8rem; padding: 1.8rem 0; border-top: 1px solid var(--line); }
+  .session:first-of-type { border-top: none; }
+  .session-num { font-family: 'Fraunces', serif; font-weight: 300; font-size: 2.6rem; color: var(--accent); line-height: 1; }
+  .session-title { font-family: 'Fraunces', serif; font-weight: 560; font-size: 1.3rem; margin-bottom: 0.2rem; }
+  .session-kick { font-style: italic; color: var(--accent); font-size: 0.98rem; margin-bottom: 0.7rem; }
+  .session-desc { color: var(--ink-soft); font-size: 1.02rem; max-width: 620px; }
+
+  /* LEAVE WITH */
+  .leave-grid { display: grid; gap: 0; margin-top: 1.5rem; max-width: 700px; }
+  .leave-item { padding: 1rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 1.1rem; align-items: baseline; }
+  .leave-item:last-child { border-bottom: none; }
+  .leave-mark { color: var(--accent); font-family: 'Fraunces', serif; font-weight: 600; font-size: 0.9rem; }
+
+  /* INSTRUCTORS */
+  .bios { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2.2rem; margin-top: 1.5rem; }
+  .bio-name { font-family: 'Fraunces', serif; font-weight: 580; font-size: 1.3rem; margin-bottom: 0.6rem; }
+  .bio-role { font-style: italic; color: var(--accent); font-size: 0.95rem; margin-bottom: 0.8rem; }
+  .bio p { font-size: 0.98rem; color: var(--ink-soft); }
+  .bio-slot { border: 1px dashed var(--gold); padding: 1.4rem; border-radius: 3px; }
+  .bio-slot .placeholder { display: block; }
+
+  /* MATERIALS (stubbed) */
+  .materials {
+    background: var(--paper-deep); border: 1px solid var(--line);
+    border-radius: 3px; padding: 2.2rem; margin-top: 1.8rem;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+  }
+  .lock { font-size: 1.6rem; line-height: 1; filter: grayscale(0.2); }
+  .materials h3 { font-family: 'Fraunces', serif; font-weight: 560; font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .materials p { font-size: 0.98rem; color: var(--ink-soft); margin-bottom: 0; }
+
+  /* APPLY */
+  .apply { text-align: center; padding: 5.5rem 0; background: var(--accent); color: var(--paper); border: none; }
+  .apply .label { color: rgba(244,240,231,0.7); }
+  .apply h2 { color: var(--paper); }
+  .apply p { color: rgba(244,240,231,0.85); margin-left: auto; margin-right: auto; }
+  .btn-light { background: var(--paper); color: var(--accent); }
+  .btn-light:hover { background: #fff; }
+
+  /* FOOTER */
+  footer { padding: 2.5rem 0; }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--ink-faint); }
+
+  /* EDITOR NOTE */
+  .editor-note {
+    background: #fff8e6; border: 1px solid var(--gold); border-radius: 3px;
+    padding: 1.4rem 1.6rem; margin: 2rem auto; max-width: var(--max);
+    font-size: 0.9rem; color: var(--ink-soft);
+  }
+  .editor-note strong { color: var(--gold); }
+  .editor-note ul { margin: 0.6rem 0 0 1.2rem; }
+  .editor-note li { margin-bottom: 0.3rem; }
+
+  @media (max-width: 720px) {
+    body { font-size: 18px; }
+    .wrap { padding: 0 1.3rem; }
+    .masthead-inner { padding: 0.8rem 1.3rem; }
+    .meta-strip { grid-template-columns: 1fr 1fr; }
+    .layer { grid-template-columns: 1fr; gap: 0.5rem; }
+    .session { grid-template-columns: 1fr; gap: 0.5rem; }
+    .session-num { font-size: 2rem; }
+    .bios { grid-template-columns: 1fr; }
+    .masthead-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <span class="masthead-name">AI Built for Your <span>Expertise</span></span>
+    <span class="masthead-meta">AI 201</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <p class="kicker">AI for Experienced Professionals</p>
+    <h1>Experience<br>runs the <em>model.</em></h1>
+    <p class="hero-tag">AI on your terms. Your work is the use case.</p>
+    <p class="hero-sub">A five-session workshop for experienced professionals ready to build AI around the work only they can do.</p>
+    <div class="hero-cta">
+      <a href="#apply" class="btn">Join the beta cohort</a>
+      <a href="#framework" class="btn-ghost">See how it works</a>
+    </div>
+
+    <p style="margin-top:1.6rem; font-style:italic; color:var(--ink-faint); font-size:1.02rem; max-width:600px;">Mixed levels welcome. No jargon to keep up with, and no question is too basic.</p>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="meta-label">Format</span>
+        <span class="meta-value">Five Weekly Sessions</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Each session</span>
+        <span class="meta-value">60 min + 30 min lab</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Cohort</span>
+        <span class="meta-value">10 to 15 people</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Beta pricing</span>
+        <span class="meta-value">$500</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT THIS IS -->
+<section>
+  <div class="wrap">
+    <p class="label">What this is</p>
+    <p class="lead">You have spent decades earning the thing AI cannot replicate. The relationships built over years. The decisions that never make it into a document. The judgment that only comes from being in the room.</p>
+    <p>AI is powerful. It is also not you. It does not know your clients. It did not sit in those meetings. It cannot tell you which part of your workflow is the real leverage point and which part just looks like one. You can.</p>
+    <p><strong>Your experience is not the past. It is the starting point.</strong></p>
+    <p>That is where this starts. You bring a real workflow from your own practice. It might be how you run a board meeting, prepare for a difficult conversation, bring on a new client, or structure a pitch. If you do it more than once and it matters, it counts.</p>
+    <p>We map it. We audit it. We put AI inside the parts that belong to it. Then we look at what becomes possible when AI is carrying what it should.</p>
+    <p class="accent-line">The tools follow the goal. Not the other way around.</p>
+  </div>
+</section>
+
+<!-- WHO -->
+<section>
+  <div class="wrap">
+    <p class="label">Who this is for</p>
+    <p class="lead">If you have used any AI tool to get real work done, even once, you are ready.</p>
+    <p>If you are starting from zero, AI 101 comes first. If you already use AI most days, you will go further here, not back over old ground. The only prerequisite is hands-on time with at least one tool, whether ChatGPT, Claude, or Gemini.</p>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework">
+  <div class="wrap">
+    <p class="label">The framework</p>
+    <h2>See it. Sort it. Scale it.</h2>
+    <p>Three phases. One workflow. Five sessions to build something only your experience could produce. We model it live using our own systems first. Then you apply the scaffold to yours.</p>
+
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-tag">
+          <div class="layer-num">Layer 1</div>
+          <div class="layer-word">See it</div>
+          <div class="layer-name">Foundation</div>
+        </div>
+        <div class="layer-desc">Most experienced professionals carry their entire operating system inside their heads. This layer gets it onto a page, where it can actually be worked with. Messy is fine. Honest is required.</div>
+      </div>
+      <div class="layer">
+        <div class="layer-tag">
+          <div class="layer-num">Layer 2</div>
+          <div class="layer-word">Sort it</div>
+          <div class="layer-name">The filter</div>
+        </div>
+        <div class="layer-desc">Audit every piece of your Map with AI in mind. What should AI own? What requires genuine judgment and must stay human? What are you doing out of habit that stopped serving you years ago?</div>
+      </div>
+      <div class="layer">
+        <div class="layer-tag">
+          <div class="layer-num">Layer 3</div>
+          <div class="layer-word">Scale it</div>
+          <div class="layer-name">Expansion</div>
+        </div>
+        <div class="layer-desc">When AI owns what it should, something appears that was not visible before. Not just time saved. Time that now has somewhere better to go. This is the layer only experience can unlock.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SESSIONS -->
+<section>
+  <div class="wrap">
+    <p class="label">The five sessions</p>
+    <p>Five weekly sessions. Light homework between each, always on your own work and never busywork.</p>
+
+    <div class="session">
+      <div class="session-num">01</div>
+      <div>
+        <div class="session-title">See It</div>
+        <div class="session-kick">Make the invisible visible</div>
+        <div class="session-desc">Map the workflow only you know how to do. In class together, instructors model first, then you build your own. Messy is fine. Honesty is required.</div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-num">02</div>
+      <div>
+        <div class="session-title">See It, Deeper</div>
+        <div class="session-kick">Find what got edited out</div>
+        <div class="session-desc">The first map is never the real map. Small groups pressure test what got left out. Then you hand one small piece to AI and observe what happens.</div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-num">03</div>
+      <div>
+        <div class="session-title">Sort It</div>
+        <div class="session-kick">Decide what AI can and cannot own</div>
+        <div class="session-desc">Now you have real data. Run the audit: what should AI own, what stays human, where does agentic AI belong. Four sort tags, one heuristic, and working groups apply it to their own maps.</div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-num">04</div>
+      <div>
+        <div class="session-title">Sort It Applied + Scale It</div>
+        <div class="session-kick">What happened, and what it opens up</div>
+        <div class="session-desc">Report back on what happened when you handed work to AI. Then look at what the friction reveals, and what opens up once AI is doing its part. Scale is not just time saved. It is where that time goes.</div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-num">05</div>
+      <div>
+        <div class="session-title">Own It</div>
+        <div class="session-kick">Explain it and you own it</div>
+        <div class="session-desc">A working debrief, not a final exam. If you want to share, you get five minutes and no deck. You walk a room of peers, not an audience, through your rebuilt workflow: what AI owns, what stayed human, what changed, what is now possible. Your Map is the visual.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAVE WITH -->
+<section>
+  <div class="wrap">
+    <p class="label">You will leave with</p>
+    <div class="leave-grid">
+      <div class="leave-item"><span class="leave-mark">01</span><span>A mapped version of one real workflow from your professional practice.</span></div>
+      <div class="leave-item"><span class="leave-mark">02</span><span>A clear view of which parts AI can support, automate, or augment.</span></div>
+      <div class="leave-item"><span class="leave-mark">03</span><span>A sharper understanding of what must remain human.</span></div>
+      <div class="leave-item"><span class="leave-mark">04</span><span>A tested AI handoff inside your actual workflow.</span></div>
+      <div class="leave-item"><span class="leave-mark">05</span><span>A scale layer showing what becomes possible when AI handles the right work.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section>
+  <div class="wrap">
+    <p class="label">Your instructors</p>
+    <div class="bios">
+      <div class="bio">
+        <div class="bio-name">Anja Lee</div>
+        <div class="bio-role">Data and AI product leader</div>
+        <p>Anja has spent 25+ years in high-tech building data-intensive products at Yahoo, SAP, CBS Interactive, and startups, across AI, analytics, cloud, privacy, gaming, and ad tech. She launched Yahoo's Interest Manager and holds a patent for its architecture. She teaches Data Visualization with Python and AI for Business at Stanford Continuing Studies, and serves as Global Advisor and instructor for Education and Ethics at She is AI. She holds an MS in Computer Science from NYU Courant and is an Executive Coach certified by UC Berkeley.</p>
+      </div>
+      <div class="bio">
+        <div class="bio-name">Lauren Cantor</div>
+        <div class="bio-role">Founder, Field + Edge</div>
+        <p>Lauren is the founder of Field + Edge, an AI advisory firm building intelligent systems for enterprise workflows, and Senior Partner at NextAccess. She spent close to twenty years on Wall Street, as Executive Director of Interest Rate Derivatives at UBS, COO and Trading Manager of a proprietary hedge fund, and Chief of Staff to the CEO of MF Global, before pivoting fully into design and technology. She holds an MBA from Wharton, a BA magna cum laude in Astrophysics from Columbia, and an MFA from the School of Visual Arts, where she was 2017 Graduate Valedictorian. She teaches AI and innovation at SVA, ArtCenter, and CalTech.</p>
+      </div>
+      <div class="bio">
+        <div class="bio-name">Mike Scafidi</div>
+        <div class="bio-role">Marketing transformation leader</div>
+        <p>Mike is the founder of TheNativeCommons.com, a company built from the ground up with a team of AI agents, and a partner at Gr0wth Dr1vers. He spent his prior career inside Fortune 50 multinationals, most notably leading marketing transformation at PepsiCo. There, he aligned global teams around new technology stacks, data infrastructure, and operating models, moving large organizations through the friction of integrating marketing, technology, and people. Over the past four years, he has brought for-profit marketing rigor, modern donor acquisition, and AI-assisted capacity to the nonprofit sector, developing a granular read on where organizations are genuinely ready to transform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="apply" id="apply">
+  <div class="wrap">
+    <p class="label">Join the beta</p>
+    <h2>Your work is the use case.</h2>
+    <p>Five online sessions. First Cohort starts July 15 at 5PM PT / 8PM ET. Beta pricing $500. The beta is capped at 15 seats.</p>
+    <p style="margin-bottom:2.4rem;">Tell us about the workflow you would bring. We read every response and reply within a few days. Enrolled participants get a private area with session recordings and exercises.</p>
+    <a href="https://forms.gle/4izbvJfgik8q7gvg7" target="_blank" rel="noopener" class="btn btn-light">Join the beta cohort</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>AI Built for Your Expertise</span>
+  </div>
+</footer>
+
+</body>
+</html>

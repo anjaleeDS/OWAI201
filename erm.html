@@ -6,252 +6,616 @@
 <title>AI Built for Your Expertise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --paper: #f4f0e7;
-    --paper-deep: #ece6d8;
-    --ink: #1c1b18;
-    --ink-soft: #45433d;
-    --ink-faint: #76726a;
-    --accent: #14463f;
-    --accent-bright: #1f6b5f;
-    --gold: #9a7b2e;
-    --line: #d4cdbd;
-    --max: 940px;
-  }
+/* ─── TOKENS ───────────────────────────────────────────────── */
+:root {
+  --navy:       #0f1a2e;   /* deep ink navy — ground */
+  --navy-mid:   #172340;   /* slightly lighter panels */
+  --navy-light: #1e2f52;   /* card / hover surfaces */
+  --green:      #2d5a3d;   /* forest green — the accent */
+  --green-mid:  #3a7050;   /* lighter green for hover states */
+  --green-bright:#4a8f65;  /* readable green on dark */
+  --green-pale: #c8dfd0;   /* very pale green for large text on dark */
+  --cream:      #f5f0e8;   /* warm off-white text on dark */
+  --cream-dim:  rgba(245,240,232,0.65);
+  --cream-faint:rgba(245,240,232,0.35);
+  --gold:       #c9a84c;   /* single warm note — used sparingly */
+  --line:       rgba(245,240,232,0.1);
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+}
 
-  html { scroll-behavior: smooth; }
+/* ─── RESET ────────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:10px; }
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 1.6rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
 
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Newsreader', Georgia, serif;
-    font-size: 19px;
-    line-height: 1.6;
-    font-weight: 380;
-    -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(circle at 12% 8%, rgba(31,107,95,0.05), transparent 40%),
-      radial-gradient(circle at 88% 22%, rgba(154,123,46,0.05), transparent 45%);
-  }
+/* ─── LAYOUT ───────────────────────────────────────────────── */
+.wrap {
+  width: 92vw;
+  max-width: 1360px;
+  margin: 0 auto;
+}
 
-  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+/* ─── ANNOUNCEMENT BAR ─────────────────────────────────────── */
+.bar {
+  background: var(--green);
+  color: var(--cream);
+  overflow: hidden;
+  height: 3.8rem;
+  display: flex;
+  align-items: center;
+}
+.bar-track {
+  display: flex;
+  gap: 5rem;
+  white-space: nowrap;
+  animation: scroll-bar 32s linear infinite;
+  will-change: transform;
+}
+.bar-item {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.bar-item::before {
+  content: "✦";
+  margin-right: 1.8rem;
+  opacity: 0.55;
+}
+@keyframes scroll-bar {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
-  /* MASTHEAD */
-  .masthead {
-    border-bottom: 1px solid var(--line);
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(244,240,231,0.86);
-    backdrop-filter: blur(8px);
-  }
-  .masthead-inner {
-    max-width: var(--max); margin: 0 auto; padding: 0.9rem 2rem;
-    display: flex; justify-content: space-between; align-items: baseline;
-  }
-  .masthead-name {
-    font-family: 'Fraunces', serif; font-weight: 600; font-size: 1rem;
-    letter-spacing: 0.01em;
-  }
-  .masthead-name span { color: var(--accent); }
-  .masthead-meta {
-    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ink-faint); font-family: 'Newsreader', serif;
-  }
+/* ─── MASTHEAD ─────────────────────────────────────────────── */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  border-bottom: 1px solid var(--line);
+  height: 7rem;
+  display: flex;
+  align-items: center;
+}
+.masthead .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mast-logo {
+  font-family: var(--sans);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--cream);
+}
+.mast-right {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+}
+.mast-label {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--green);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 1rem 2.4rem;
+  border: 1px solid var(--green);
+  transition: background 0.25s, border-color 0.25s;
+  cursor: pointer;
+}
+.btn-pill:hover { background: var(--green-mid); border-color: var(--green-mid); }
+.btn-pill-outline {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 1rem 2.4rem;
+  border: 1px solid rgba(245,240,232,0.3);
+  transition: border-color 0.25s, background 0.25s;
+  cursor: pointer;
+}
+.btn-pill-outline:hover { border-color: var(--cream); background: rgba(245,240,232,0.06); }
 
-  /* HERO */
-  .hero { padding: 6rem 0 4.5rem; border-bottom: 1px solid var(--line); }
-  .kicker {
-    font-size: 0.74rem; letter-spacing: 0.26em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 2rem;
-    opacity: 0; animation: rise 0.8s 0.05s forwards;
-  }
-  .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 540; font-size: clamp(3rem, 8vw, 5.6rem);
-    line-height: 0.98; letter-spacing: -0.02em; margin-bottom: 1.4rem;
-    opacity: 0; animation: rise 0.9s 0.15s forwards;
-  }
-  .hero h1 em { font-style: italic; color: var(--accent); font-weight: 460; }
-  .hero-tag {
-    font-family: 'Fraunces', serif; font-style: italic;
-    font-size: clamp(1.4rem, 3.2vw, 2rem); font-weight: 380;
-    color: var(--ink-soft); margin-bottom: 2.4rem;
-    opacity: 0; animation: rise 0.9s 0.3s forwards;
-  }
-  .hero-sub {
-    max-width: 600px; font-size: 1.22rem; color: var(--ink-soft);
-    margin-bottom: 3rem; opacity: 0; animation: rise 0.9s 0.45s forwards;
-  }
-  .hero-cta {
-    opacity: 0; animation: rise 0.9s 0.6s forwards;
-    display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
-  }
+/* ─── HERO ─────────────────────────────────────────────────── */
+.hero {
+  padding: 9rem 0 7rem;
+  border-bottom: 1px solid var(--line);
+}
+.kicker {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  margin-bottom: 2.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.kicker::before {
+  content: "";
+  display: inline-block;
+  width: 2.8rem;
+  height: 1px;
+  background: var(--green-bright);
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(5.6rem, 9.5vw, 11.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--cream);
+  margin-bottom: 3rem;
+  max-width: 14ch;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--green-pale);
+}
+.hero-tag {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 2.6vw, 2.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream-dim);
+  max-width: 52ch;
+  margin-bottom: 1.4rem;
+  line-height: 1.3;
+}
+.hero-sub {
+  font-size: 1.7rem;
+  color: var(--cream-dim);
+  max-width: 52ch;
+  margin-bottom: 3.6rem;
+  line-height: 1.65;
+}
+.hero-cta {
+  display: flex;
+  gap: 1.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 4.8rem;
+}
+.hero-note {
+  font-size: 1.4rem;
+  color: var(--cream-faint);
+  font-style: italic;
+}
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* ─── META STRIP ───────────────────────────────────────────── */
+.meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  margin-top: 5.6rem;
+  background: var(--navy-mid);
+}
+.meta-cell {
+  padding: 2.2rem 2.8rem;
+  border-right: 1px solid var(--line);
+}
+.meta-cell:last-child { border-right: none; }
+.meta-label {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  display: block;
+  margin-bottom: 0.7rem;
+}
+.meta-value {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.2;
+}
 
-  .btn {
-    display: inline-block; background: var(--accent); color: var(--paper);
-    font-family: 'Newsreader', serif; font-size: 1.02rem; font-weight: 500;
-    padding: 0.85rem 2rem; border-radius: 2px; text-decoration: none;
-    letter-spacing: 0.01em; transition: background 0.25s, transform 0.25s;
-  }
-  .btn:hover { background: var(--accent-bright); transform: translateY(-2px); }
-  .btn-ghost {
-    color: var(--accent); text-decoration: none; font-size: 0.95rem;
-    border-bottom: 1px solid var(--line); padding-bottom: 2px;
-    transition: border-color 0.25s;
-  }
-  .btn-ghost:hover { border-color: var(--accent); }
+/* ─── SECTIONS ─────────────────────────────────────────────── */
+.section {
+  padding: 8rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.section-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.section-label::before {
+  content: "";
+  display: inline-block;
+  width: 2.8rem;
+  height: 1px;
+  background: var(--green-bright);
+}
+h2.display {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.6rem, 5.5vw, 8rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--cream);
+  margin-bottom: 3rem;
+}
+.lead {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 2.4vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.38;
+  color: var(--cream);
+  max-width: 64ch;
+  margin-bottom: 2rem;
+}
+.body-copy {
+  font-size: 1.65rem;
+  color: var(--cream-dim);
+  max-width: 62ch;
+  line-height: 1.7;
+  margin-bottom: 1.6rem;
+}
+.body-copy strong { color: var(--cream); font-weight: 600; }
+.pullquote {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 3.2vw, 4rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--green-pale);
+  max-width: 52ch;
+  margin: 3.6rem 0;
+  padding-left: 2.8rem;
+  border-left: 2px solid var(--green);
+}
 
-  /* META STRIP */
-  .meta-strip {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1px; background: var(--line);
-    border: 1px solid var(--line); margin-top: 3.2rem;
-    opacity: 0; animation: rise 0.9s 0.7s forwards;
-  }
-  .meta-cell { background: var(--paper); padding: 1.1rem 1.2rem; }
-  .meta-label {
-    font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ink-faint); display: block; margin-bottom: 0.35rem;
-  }
-  .meta-value { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.04rem; }
-  .placeholder {
-    color: var(--gold); font-style: italic; font-family: 'Newsreader', serif;
-    font-weight: 400; font-size: 0.95rem;
-  }
+/* ─── TWO-COL ──────────────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
 
-  /* SECTIONS */
-  section { padding: 4.5rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: 76px; }
-  .label {
-    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 1.6rem;
-  }
-  h2 {
-    font-family: 'Fraunces', serif; font-weight: 520;
-    font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.05;
-    letter-spacing: -0.015em; margin-bottom: 1.6rem;
-  }
-  section p { margin-bottom: 1.1rem; max-width: 680px; }
-  .lead { font-size: 1.28rem; color: var(--ink-soft); }
-  strong { font-weight: 600; color: var(--ink); }
-  .accent-line {
-    font-family: 'Fraunces', serif; font-style: italic; font-weight: 460;
-    font-size: 1.5rem; color: var(--accent); line-height: 1.3;
-    margin: 2rem 0; max-width: 620px;
-  }
+/* ─── FRAMEWORK ────────────────────────────────────────────── */
+.layers {
+  margin-top: 4rem;
+  border-top: 1px solid var(--line);
+}
+.layer {
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  gap: 3rem;
+  padding: 3.6rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  transition: background 0.2s;
+  border-radius: 0;
+}
+.layer:hover { background: var(--navy-light); padding-left: 1.6rem; padding-right: 1.6rem; margin-left: -1.6rem; margin-right: -1.6rem; }
+.layer-phase {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  display: block;
+  margin-bottom: 0.7rem;
+}
+.layer-word {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 4.5vw, 5.6rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.layer-sub {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-top: 0.8rem;
+}
+.layer-desc {
+  font-size: 1.7rem;
+  color: var(--cream-dim);
+  line-height: 1.65;
+  align-self: center;
+}
 
-  /* FRAMEWORK */
-  .layers { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 2.4rem; }
-  .layer { background: var(--paper); padding: 2rem; display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; transition: background 0.3s; }
-  .layer:hover { background: var(--paper-deep); }
-  .layer-tag { }
-  .layer-num { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); }
-  .layer-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.8rem; color: var(--accent); margin-top: 0.2rem; }
-  .layer-name { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; margin-top: 0.2rem; }
-  .layer-desc { font-size: 1.04rem; color: var(--ink-soft); }
+/* ─── SESSIONS ─────────────────────────────────────────────── */
+.sessions {
+  margin-top: 3rem;
+  border-top: 1px solid var(--line);
+}
+.session {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 3rem;
+  padding: 3.2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.session-num {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--green);
+  line-height: 1;
+  padding-top: 0.2rem;
+}
+.session-title {
+  font-family: var(--sans);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+.session-kick {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  margin-bottom: 0.9rem;
+}
+.session-desc {
+  font-size: 1.6rem;
+  color: var(--cream-dim);
+  line-height: 1.65;
+  max-width: 62ch;
+}
 
-  /* SESSIONS */
-  .session { display: grid; grid-template-columns: 120px 1fr; gap: 1.8rem; padding: 1.8rem 0; border-top: 1px solid var(--line); }
-  .session:first-of-type { border-top: none; }
-  .session-num { font-family: 'Fraunces', serif; font-weight: 300; font-size: 2.6rem; color: var(--accent); line-height: 1; }
-  .session-title { font-family: 'Fraunces', serif; font-weight: 560; font-size: 1.3rem; margin-bottom: 0.2rem; }
-  .session-kick { font-style: italic; color: var(--accent); font-size: 0.98rem; margin-bottom: 0.7rem; }
-  .session-desc { color: var(--ink-soft); font-size: 1.02rem; max-width: 620px; }
+/* ─── LEAVE WITH ───────────────────────────────────────────── */
+.leave-list {
+  margin-top: 2.8rem;
+  max-width: 72rem;
+  border-top: 1px solid var(--line);
+}
+.leave-item {
+  display: flex;
+  gap: 2.8rem;
+  align-items: baseline;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.7rem;
+  color: var(--cream-dim);
+  line-height: 1.55;
+}
+.leave-mark {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--green-bright);
+  flex-shrink: 0;
+  width: 2.4rem;
+}
 
-  /* LEAVE WITH */
-  .leave-grid { display: grid; gap: 0; margin-top: 1.5rem; max-width: 700px; }
-  .leave-item { padding: 1rem 0; border-bottom: 1px solid var(--line); display: flex; gap: 1.1rem; align-items: baseline; }
-  .leave-item:last-child { border-bottom: none; }
-  .leave-mark { color: var(--accent); font-family: 'Fraunces', serif; font-weight: 600; font-size: 0.9rem; }
+/* ─── INSTRUCTOR NAME MARQUEE ──────────────────────────────── */
+.name-marquee {
+  overflow: hidden;
+  background: var(--green);
+  padding: 2.2rem 0;
+}
+.name-track {
+  display: flex;
+  gap: 5rem;
+  white-space: nowrap;
+  animation: scroll-bar 20s linear infinite;
+}
+.name-item {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,240,232,0.5);
+  flex-shrink: 0;
+}
+.name-item.lit { color: var(--cream); }
+.name-sep {
+  color: rgba(245,240,232,0.25);
+  flex-shrink: 0;
+  align-self: center;
+  font-size: 1.4rem;
+}
 
-  /* INSTRUCTORS */
-  .bios { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2.2rem; margin-top: 1.5rem; }
-  .bio-name { font-family: 'Fraunces', serif; font-weight: 580; font-size: 1.3rem; margin-bottom: 0.6rem; }
-  .bio-role { font-style: italic; color: var(--accent); font-size: 0.95rem; margin-bottom: 0.8rem; }
-  .bio p { font-size: 0.98rem; color: var(--ink-soft); }
-  .bio-slot { border: 1px dashed var(--gold); padding: 1.4rem; border-radius: 3px; }
-  .bio-slot .placeholder { display: block; }
+/* ─── BIOS ─────────────────────────────────────────────────── */
+.bios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4.8rem;
+  margin-top: 4.8rem;
+}
+.bio-name {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+  line-height: 1.15;
+}
+.bio-role {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  margin-bottom: 1.6rem;
+}
+.bio p {
+  font-size: 1.5rem;
+  color: var(--cream-dim);
+  line-height: 1.65;
+}
 
-  /* MATERIALS (stubbed) */
-  .materials {
-    background: var(--paper-deep); border: 1px solid var(--line);
-    border-radius: 3px; padding: 2.2rem; margin-top: 1.8rem;
-    display: flex; gap: 1.5rem; align-items: flex-start;
-  }
-  .lock { font-size: 1.6rem; line-height: 1; filter: grayscale(0.2); }
-  .materials h3 { font-family: 'Fraunces', serif; font-weight: 560; font-size: 1.25rem; margin-bottom: 0.5rem; }
-  .materials p { font-size: 0.98rem; color: var(--ink-soft); margin-bottom: 0; }
+/* ─── GREEN PANEL (mid) ────────────────────────────────────── */
+.green-panel {
+  background: var(--green);
+  padding: 8rem 0;
+  border-top: none;
+  border-bottom: none;
+}
+.green-panel .section-label { color: rgba(245,240,232,0.6); }
+.green-panel .section-label::before { background: rgba(245,240,232,0.4); }
+.green-panel .lead { color: var(--cream); }
+.green-panel .body-copy { color: rgba(245,240,232,0.72); }
+.green-panel .body-copy strong { color: var(--cream); }
 
-  /* APPLY */
-  .apply { text-align: center; padding: 5.5rem 0; background: var(--accent); color: var(--paper); border: none; }
-  .apply .label { color: rgba(244,240,231,0.7); }
-  .apply h2 { color: var(--paper); }
-  .apply p { color: rgba(244,240,231,0.85); margin-left: auto; margin-right: auto; }
-  .btn-light { background: var(--paper); color: var(--accent); }
-  .btn-light:hover { background: #fff; }
+/* ─── APPLY ────────────────────────────────────────────────── */
+.apply-wrap {
+  background: var(--navy-mid);
+  border: 1px solid var(--line);
+  border-radius: 1.6rem;
+  padding: 6rem;
+  margin-top: 4rem;
+}
+.btn-pill-large {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--green);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 1.7rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 1.6rem 3.6rem;
+  border: 1px solid var(--green);
+  transition: background 0.25s, border-color 0.25s;
+  cursor: pointer;
+}
+.btn-pill-large:hover { background: var(--green-mid); border-color: var(--green-mid); }
+.btn-pill-large::after { content: "→"; }
 
-  /* FOOTER */
-  footer { padding: 2.5rem 0; }
-  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--ink-faint); }
+/* ─── FOOTER ───────────────────────────────────────────────── */
+.footer {
+  background: var(--navy);
+  border-top: 1px solid var(--line);
+  padding: 3.2rem 0;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  color: var(--cream-faint);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 
-  /* EDITOR NOTE */
-  .editor-note {
-    background: #fff8e6; border: 1px solid var(--gold); border-radius: 3px;
-    padding: 1.4rem 1.6rem; margin: 2rem auto; max-width: var(--max);
-    font-size: 0.9rem; color: var(--ink-soft);
-  }
-  .editor-note strong { color: var(--gold); }
-  .editor-note ul { margin: 0.6rem 0 0 1.2rem; }
-  .editor-note li { margin-bottom: 0.3rem; }
-
-  @media (max-width: 720px) {
-    body { font-size: 18px; }
-    .wrap { padding: 0 1.3rem; }
-    .masthead-inner { padding: 0.8rem 1.3rem; }
-    .meta-strip { grid-template-columns: 1fr 1fr; }
-    .layer { grid-template-columns: 1fr; gap: 0.5rem; }
-    .session { grid-template-columns: 1fr; gap: 0.5rem; }
-    .session-num { font-size: 2rem; }
-    .bios { grid-template-columns: 1fr; }
-    .masthead-meta { display: none; }
-  }
+/* ─── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .meta-strip { grid-template-columns: 1fr 1fr; }
+  .meta-cell:nth-child(2) { border-right: none; }
+  .meta-cell:nth-child(1), .meta-cell:nth-child(2) { border-bottom: 1px solid var(--line); }
+  .bios { grid-template-columns: 1fr; gap: 3.2rem; }
+  .two-col { grid-template-columns: 1fr; gap: 2.4rem; }
+  .layer { grid-template-columns: 1fr; gap: 0.8rem; }
+  .layer:hover { padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
+  .session { grid-template-columns: 1fr; gap: 0.6rem; }
+  .session-num { display: none; }
+  .apply-wrap { padding: 3.6rem 2.8rem; }
+  .mast-label { display: none; }
+}
+@media (max-width: 640px) {
+  .hero h1 { font-size: 5rem; }
+  .mast-right .btn-pill { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar-track, .name-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
 </style>
 </head>
 <body>
 
+<!-- ANNOUNCEMENT BAR -->
+<div class="bar" aria-label="Announcement">
+  <div class="bar-track" aria-hidden="true">
+    <span class="bar-item">AI 201</span>
+    <span class="bar-item">Five Weekly Sessions</span>
+    <span class="bar-item">First Cohort starts July 15 at 5PM PT / 8PM ET</span>
+    <span class="bar-item">Beta cohort — $500</span>
+    <span class="bar-item">Capped at 15 seats</span>
+    <span class="bar-item">Your work is the use case</span>
+    <span class="bar-item">AI 201</span>
+    <span class="bar-item">Five Weekly Sessions</span>
+    <span class="bar-item">First Cohort starts July 15 at 5PM PT / 8PM ET</span>
+    <span class="bar-item">Beta cohort — $500</span>
+    <span class="bar-item">Capped at 15 seats</span>
+    <span class="bar-item">Your work is the use case</span>
+  </div>
+</div>
 
+<!-- MASTHEAD -->
 <header class="masthead">
-  <div class="masthead-inner">
-    <span class="masthead-name">AI Built for Your <span>Expertise</span></span>
-    <span class="masthead-meta">AI 201</span>
+  <div class="wrap">
+    <span class="mast-logo">AI Built for Your Expertise</span>
+    <div class="mast-right">
+      <span class="mast-label">AI 201</span>
+      <a href="#apply" class="btn-pill">Join the beta</a>
+    </div>
   </div>
 </header>
 
 <!-- HERO -->
-<div class="hero">
+<section class="hero">
   <div class="wrap">
-    <p class="kicker">AI for Experienced Professionals</p>
-    <h1>Experience<br>runs the <em>model.</em></h1>
+    <p class="kicker">AI for experienced professionals</p>
+    <h1>Experience runs the <em>model.</em></h1>
     <p class="hero-tag">AI on your terms. Your work is the use case.</p>
     <p class="hero-sub">A five-session workshop for experienced professionals ready to build AI around the work only they can do.</p>
     <div class="hero-cta">
-      <a href="#apply" class="btn">Join the beta cohort</a>
-      <a href="#framework" class="btn-ghost">See how it works</a>
+      <a href="#apply" class="btn-pill">Join the beta cohort</a>
+      <a href="#framework" class="btn-pill-outline">See how it works</a>
     </div>
-
-    <p style="margin-top:1.6rem; font-style:italic; color:var(--ink-faint); font-size:1.02rem; max-width:600px;">Mixed levels welcome. No jargon to keep up with, and no question is too basic.</p>
+    <p class="hero-note">Mixed levels welcome. No jargon to keep up with, and no question is too basic.</p>
 
     <div class="meta-strip">
       <div class="meta-cell">
         <span class="meta-label">Format</span>
-        <span class="meta-value">Five Weekly Sessions</span>
+        <span class="meta-value">Five Weekly Online Sessions</span>
       </div>
       <div class="meta-cell">
         <span class="meta-label">Each session</span>
@@ -267,124 +631,123 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- WHAT THIS IS -->
-<section>
+<section class="section">
   <div class="wrap">
-    <p class="label">What this is</p>
+    <p class="section-label">What this is</p>
     <p class="lead">You have spent decades earning the thing AI cannot replicate. The relationships built over years. The decisions that never make it into a document. The judgment that only comes from being in the room.</p>
-    <p>AI is powerful. It is also not you. It does not know your clients. It did not sit in those meetings. It cannot tell you which part of your workflow is the real leverage point and which part just looks like one. You can.</p>
-    <p><strong>Your experience is not the past. It is the starting point.</strong></p>
-    <p>That is where this starts. You bring a real workflow from your own practice. It might be how you run a board meeting, prepare for a difficult conversation, bring on a new client, or structure a pitch. If you do it more than once and it matters, it counts.</p>
-    <p>We map it. We audit it. We put AI inside the parts that belong to it. Then we look at what becomes possible when AI is carrying what it should.</p>
-    <p class="accent-line">The tools follow the goal. Not the other way around.</p>
+    <p class="body-copy">AI is powerful. It is also not you. It does not know your clients. It did not sit in those meetings. It cannot tell you which part of your workflow is the real leverage point and which part just looks like one. You can.</p>
+    <p class="body-copy"><strong>Your experience is not the past. It is the starting point.</strong></p>
+    <p class="body-copy">That is where this starts. You bring a real workflow from your own practice. It might be how you run a board meeting, prepare for a difficult conversation, bring on a new client, or structure a pitch. If you do it more than once and it matters, it counts.</p>
+    <p class="body-copy">We map it. We audit it. We put AI inside the parts that belong to it. Then we look at what becomes possible when AI is carrying what it should.</p>
+    <p class="pullquote">The tools follow the goal. Not the other way around.</p>
   </div>
 </section>
 
 <!-- WHO -->
-<section>
+<section class="section">
   <div class="wrap">
-    <p class="label">Who this is for</p>
-    <p class="lead">If you have used any AI tool to get real work done, even once, you are ready.</p>
-    <p>If you are starting from zero, AI 101 comes first. If you already use AI most days, you will go further here, not back over old ground. The only prerequisite is hands-on time with at least one tool, whether ChatGPT, Claude, or Gemini.</p>
+    <p class="section-label">Who this is for</p>
+    <div class="two-col">
+      <p class="lead">If you have used any AI tool to get real work done, even once, you are ready.</p>
+      <p class="body-copy" style="align-self:center;">If you are starting from zero, AI 101 comes first. If you already use AI most days, you will go further here, not back over old ground. The only prerequisite is hands-on time with at least one tool, whether ChatGPT, Claude, or Gemini.</p>
+    </div>
   </div>
 </section>
 
 <!-- FRAMEWORK -->
-<section id="framework">
+<section class="section" id="framework">
   <div class="wrap">
-    <p class="label">The framework</p>
-    <h2>See it. Sort it. Scale it.</h2>
-    <p>Three phases. One workflow. Five sessions to build something only your experience could produce. We model it live using our own systems first. Then you apply the scaffold to yours.</p>
+    <p class="section-label">The framework</p>
+    <h2 class="display">See it. Sort it. Scale it.</h2>
+    <p class="body-copy">Three phases. One workflow. Five sessions to build something only your experience could produce. We model it live using our own systems first. Then you apply the scaffold to yours.</p>
 
     <div class="layers">
       <div class="layer">
-        <div class="layer-tag">
-          <div class="layer-num">Layer 1</div>
+        <div>
+          <span class="layer-phase">Phase 01</span>
           <div class="layer-word">See it</div>
-          <div class="layer-name">Foundation</div>
+          <div class="layer-sub">Foundation</div>
         </div>
-        <div class="layer-desc">Most experienced professionals carry their entire operating system inside their heads. This layer gets it onto a page, where it can actually be worked with. Messy is fine. Honest is required.</div>
+        <p class="layer-desc">Most experienced professionals carry their entire operating system inside their heads. This layer gets it onto a page, where it can actually be worked with. Messy is fine. Honest is required.</p>
       </div>
       <div class="layer">
-        <div class="layer-tag">
-          <div class="layer-num">Layer 2</div>
+        <div>
+          <span class="layer-phase">Phase 02</span>
           <div class="layer-word">Sort it</div>
-          <div class="layer-name">The filter</div>
+          <div class="layer-sub">The filter</div>
         </div>
-        <div class="layer-desc">Audit every piece of your Map with AI in mind. What should AI own? What requires genuine judgment and must stay human? What are you doing out of habit that stopped serving you years ago?</div>
+        <p class="layer-desc">Audit every piece of your Map with AI in mind. What should AI own? What requires genuine judgment and must stay human? What are you doing out of habit that stopped serving you years ago?</p>
       </div>
       <div class="layer">
-        <div class="layer-tag">
-          <div class="layer-num">Layer 3</div>
+        <div>
+          <span class="layer-phase">Phase 03</span>
           <div class="layer-word">Scale it</div>
-          <div class="layer-name">Expansion</div>
+          <div class="layer-sub">Expansion</div>
         </div>
-        <div class="layer-desc">When AI owns what it should, something appears that was not visible before. Not just time saved. Time that now has somewhere better to go. This is the layer only experience can unlock.</div>
+        <p class="layer-desc">When AI owns what it should, something appears that was not visible before. Not just time saved. Time that now has somewhere better to go. This is the layer only experience can unlock.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SESSIONS -->
-<section>
+<section class="section">
   <div class="wrap">
-    <p class="label">The five sessions</p>
-    <p>Five weekly sessions. Light homework between each, always on your own work and never busywork.</p>
-
-    <div class="session">
-      <div class="session-num">01</div>
-      <div>
-        <div class="session-title">See It</div>
-        <div class="session-kick">Make the invisible visible</div>
-        <div class="session-desc">Map the workflow only you know how to do. In class together, instructors model first, then you build your own. Messy is fine. Honesty is required.</div>
+    <p class="section-label">The five sessions</p>
+    <p class="body-copy">Five weekly sessions. Light homework between each, always on your own work and never busywork.</p>
+    <div class="sessions">
+      <div class="session">
+        <div class="session-num">01</div>
+        <div>
+          <div class="session-title">See It</div>
+          <div class="session-kick">Make the invisible visible</div>
+          <p class="session-desc">Map the workflow only you know how to do. In class together, instructors model first, then you build your own. Messy is fine. Honesty is required.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="session">
-      <div class="session-num">02</div>
-      <div>
-        <div class="session-title">See It, Deeper</div>
-        <div class="session-kick">Find what got edited out</div>
-        <div class="session-desc">The first map is never the real map. Small groups pressure test what got left out. Then you hand one small piece to AI and observe what happens.</div>
+      <div class="session">
+        <div class="session-num">02</div>
+        <div>
+          <div class="session-title">See It, Deeper</div>
+          <div class="session-kick">Find what got edited out</div>
+          <p class="session-desc">The first map is never the real map. Small groups pressure test what got left out. Then you hand one small piece to AI and observe what happens.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="session">
-      <div class="session-num">03</div>
-      <div>
-        <div class="session-title">Sort It</div>
-        <div class="session-kick">Decide what AI can and cannot own</div>
-        <div class="session-desc">Now you have real data. Run the audit: what should AI own, what stays human, where does agentic AI belong. Four sort tags, one heuristic, and working groups apply it to their own maps.</div>
+      <div class="session">
+        <div class="session-num">03</div>
+        <div>
+          <div class="session-title">Sort It</div>
+          <div class="session-kick">Decide what AI can and cannot own</div>
+          <p class="session-desc">Now you have real data. Run the audit: what should AI own, what stays human, where does agentic AI belong. Four sort tags, one heuristic, and working groups apply it to their own maps.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="session">
-      <div class="session-num">04</div>
-      <div>
-        <div class="session-title">Sort It Applied + Scale It</div>
-        <div class="session-kick">What happened, and what it opens up</div>
-        <div class="session-desc">Report back on what happened when you handed work to AI. Then look at what the friction reveals, and what opens up once AI is doing its part. Scale is not just time saved. It is where that time goes.</div>
+      <div class="session">
+        <div class="session-num">04</div>
+        <div>
+          <div class="session-title">Sort It Applied + Scale It</div>
+          <div class="session-kick">What happened, and what it opens up</div>
+          <p class="session-desc">Report back on what happened when you handed work to AI. Then look at what the friction reveals, and what opens up once AI is doing its part. Scale is not just time saved. It is where that time goes.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="session">
-      <div class="session-num">05</div>
-      <div>
-        <div class="session-title">Own It</div>
-        <div class="session-kick">Explain it and you own it</div>
-        <div class="session-desc">A working debrief, not a final exam. If you want to share, you get five minutes and no deck. You walk a room of peers, not an audience, through your rebuilt workflow: what AI owns, what stayed human, what changed, what is now possible. Your Map is the visual.</div>
+      <div class="session">
+        <div class="session-num">05</div>
+        <div>
+          <div class="session-title">Own It</div>
+          <div class="session-kick">Explain it and you own it</div>
+          <p class="session-desc">A working debrief, not a final exam. If you want to share, you get five minutes and no deck. You walk a room of peers, not an audience, through your rebuilt workflow: what AI owns, what stayed human, what changed, what is now possible. Your Map is the visual.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- LEAVE WITH -->
-<section>
+<section class="section">
   <div class="wrap">
-    <p class="label">You will leave with</p>
-    <div class="leave-grid">
+    <p class="section-label">You will leave with</p>
+    <div class="leave-list">
       <div class="leave-item"><span class="leave-mark">01</span><span>A mapped version of one real workflow from your professional practice.</span></div>
       <div class="leave-item"><span class="leave-mark">02</span><span>A clear view of which parts AI can support, automate, or augment.</span></div>
       <div class="leave-item"><span class="leave-mark">03</span><span>A sharper understanding of what must remain human.</span></div>
@@ -395,9 +758,9 @@
 </section>
 
 <!-- INSTRUCTORS -->
-<section>
+<section class="section">
   <div class="wrap">
-    <p class="label">Your instructors</p>
+    <p class="section-label">Your instructors</p>
     <div class="bios">
       <div class="bio">
         <div class="bio-name">Anja Lee</div>
@@ -419,19 +782,25 @@
 </section>
 
 <!-- APPLY -->
-<section class="apply" id="apply">
+<section class="section" id="apply" style="border-bottom:none;">
   <div class="wrap">
-    <p class="label">Join the beta</p>
-    <h2>Your work is the use case.</h2>
-    <p>Five online sessions. First Cohort starts July 15 at 5PM PT / 8PM ET. Beta pricing $500. The beta is capped at 15 seats.</p>
-    <p style="margin-bottom:2.4rem;">Tell us about the workflow you would bring. We read every response and reply within a few days. Enrolled participants get a private area with session recordings and exercises.</p>
-    <a href="https://forms.gle/4izbvJfgik8q7gvg7" target="_blank" rel="noopener" class="btn btn-light">Join the beta cohort</a>
+    <p class="section-label">Join the beta</p>
+    <div class="apply-wrap">
+      <h2 class="display" style="margin-bottom:2rem;">Your work is the use case.</h2>
+      <p class="body-copy">Five online sessions. First Cohort starts July 15 at 5PM PT / 8PM ET. Beta pricing $500. The beta is capped at 15 seats.</p>
+      <p class="body-copy" style="margin-bottom:3.6rem;">Tell us about the workflow you would bring. We read every response and reply within a few days. Enrolled participants get a private area with session recordings and exercises.</p>
+      <a href="https://forms.gle/4izbvJfgik8q7gvg7" target="_blank" rel="noopener" class="btn-pill-large">Join the beta cohort</a>
+    </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot-inner">
-    <span>AI Built for Your Expertise</span>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span>AI Built for Your Expertise</span>
+      <span>Taught by Anja Lee, Lauren Cantor, Mike Scafidi</span>
+    </div>
   </div>
 </footer>
 
